@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment files
+.env
+.env*.local
+backend/.env
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Logs & temp
+*.log
+.system_generated/
+.DS_Store

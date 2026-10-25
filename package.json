@@ -1,0 +1,17 @@
+{
+  "name": "gopratle-requirement-flow",
+  "version": "1.0.0",
+  "description": "GoPratle Technical Assignment: Dynamic Multi-Step Requirement Posting Flow (Next.js + Express + MongoDB)",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run --prefix backend dev",
+    "dev:frontend": "npm run --prefix frontend dev",
+    "seed": "npm run --prefix backend seed",
+    "build:frontend": "npm run --prefix frontend build",
+    "build:backend": "npm run --prefix backend build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "author": "Sanskriti Goswami"
+}

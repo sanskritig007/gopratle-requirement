@@ -12,7 +12,7 @@
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Zod](https://img.shields.io/badge/Validation-Zod-3E67B1?style=for-the-badge&logo=zod)](https://zod.dev/)
 
-[Live Demo](http://localhost:3000) • [API Documentation](#-api-specification) • [Architecture Decisions](#-architectural-highlights--design-patterns) • [Local Setup](#-getting-started)
+[🌐 Live Web App (Vercel)](https://gopratle-requirement-k3mp.vercel.app/) • [📡 Live Backend API (Render)](https://gopratle-requirement.onrender.com/api/health) • [📋 API Documentation](#-api-specification) • [Architecture Decisions](#-architectural-highlights--design-patterns)
 
 </div>
 

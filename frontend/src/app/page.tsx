@@ -5,6 +5,7 @@ import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
 import { StepIndicator } from '@/components/wizard/StepIndicator';
 import { Step1EventBasics } from '@/components/wizard/Step1EventBasics';
+import { Step2CategorySpecific } from '@/components/wizard/Step2CategorySpecific';
 import { LiveRequirementPreview } from '@/components/wizard/LiveRequirementPreview';
 import { IRequirementFormData, CategoryType } from '@/types/requirement';
 import { SAMPLE_PRESETS } from '@/lib/constants';
@@ -141,27 +142,40 @@ export default function Home() {
                   />
                 )}
 
-                {/* Step 2 placeholder (Phase 3) */}
+                {/* Step 2: Category Specific Specs */}
                 {currentStep === 2 && (
-                  <div className="py-12 text-center space-y-4">
+                  <Step2CategorySpecific
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onNext={() => setCurrentStep(3)}
+                    onBack={() => setCurrentStep(1)}
+                    theme={theme}
+                  />
+                )}
+
+                {/* Step 3 Placeholder */}
+                {currentStep === 3 && (
+                  <div className="py-12 text-center space-y-4 animate-fadeIn">
                     <div className="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 text-orange-500 mx-auto flex items-center justify-center text-2xl font-bold">
-                      02
+                      03
                     </div>
                     <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                      Step 2: Category Specific Specs ({formData.category.toUpperCase()})
+                      Step 3: Logistics & Technicals ({formData.category.toUpperCase()})
                     </h3>
                     <p className={`text-sm max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                      Phase 3 will render category-specific fields here (Planner scope & budget / Performer genres & duration / Crew headcount & roles).
+                      Up next: Theme & catering for planners, stage & sound specs for performers, shift timings & equipment for crew.
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentStep(1)}
-                      className={`px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer ${
-                        isDark ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                      }`}
-                    >
-                      ← Back to Step 1
-                    </button>
+                    <div className="flex items-center justify-center space-x-3 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(2)}
+                        className={`px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer ${
+                          isDark ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        }`}
+                      >
+                        ← Back to Step 2
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>

@@ -24,6 +24,22 @@ body {
   background-attachment: fixed;
 }
 
+/* Dribbble Sunset Hero Mesh Gradient */
+.hero-sunset-gradient {
+  background: linear-gradient(135deg, #31104b 0%, #581c87 25%, #9333ea 50%, #db2777 75%, #ea580c 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-sunset-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 75% 25%, rgba(251, 146, 60, 0.35), transparent 45%),
+              radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.35), transparent 50%);
+  pointer-events: none;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
@@ -64,6 +80,25 @@ body {
 /* Glowing text highlight */
 .glow-text {
   text-shadow: 0 0 20px rgba(255, 91, 53, 0.4);
+}
+
+/* Float animations for hero cards */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(6px); }
+}
+
+.animate-float {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite;
 }
 
 /* Pulse animation for active step */

@@ -7,9 +7,12 @@ import { Stepper } from '@/components/wizard/Stepper';
 import { EventBasics } from '@/components/wizard/EventBasics';
 import { CategoryDetails } from '@/components/wizard/CategoryDetails';
 import { EventLogistics } from '@/components/wizard/EventLogistics';
+import { ReviewSummary } from '@/components/wizard/ReviewSummary';
+import { SubmissionSuccess } from '@/components/wizard/SubmissionSuccess';
 import { EventPreviewCard } from '@/components/wizard/EventPreviewCard';
-import { IRequirementFormData, CategoryType } from '@/types/requirement';
+import { IRequirementFormData, IRequirementItem, CategoryType } from '@/types/requirement';
 import { SAMPLE_PRESETS } from '@/lib/constants';
+import { createRequirement } from '@/lib/api';
 
 const INITIAL_FORM_DATA: IRequirementFormData = {
   eventName: '',
@@ -37,6 +40,9 @@ export default function Home() {
   const [formData, setFormData] = useState<IRequirementFormData>(INITIAL_FORM_DATA);
   const [feedCount, setFeedCount] = useState<number>(3);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [createdItem, setCreatedItem] = useState<IRequirementItem | null>(null);
 
   // Load draft & theme from localStorage
   useEffect(() => {
@@ -83,6 +89,33 @@ export default function Home() {
         localStorage.setItem('gopratle_requirement_draft', JSON.stringify(preset));
       } catch (e) {}
     }
+  };
+
+  // Submit requirement to MongoDB via Express API
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await createRequirement(formData);
+      if (res.success && res.data) {
+        setCreatedItem(res.data);
+        setFeedCount((prev) => prev + 1);
+        try {
+          localStorage.removeItem('gopratle_requirement_draft');
+        } catch (e) {}
+      }
+    } catch (err: any) {
+      setSubmitError(err.message || 'Failed to submit requirement. Please check your network and inputs.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Reset form to post another requirement
+  const handlePostAnother = () => {
+    setCreatedItem(null);
+    setFormData(INITIAL_FORM_DATA);
+    setCurrentStep(1);
   };
 
   const isDark = theme === 'dark';
@@ -165,30 +198,27 @@ export default function Home() {
                   />
                 )}
 
-                {/* Step 4 Placeholder */}
+                {/* Step 4: Review & Post to MongoDB */}
                 {currentStep === 4 && (
-                  <div className="py-12 text-center space-y-4 animate-fadeIn">
-                    <div className="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 text-orange-500 mx-auto flex items-center justify-center text-2xl font-bold">
-                      04
-                    </div>
-                    <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                      Step 4: Review & Post to MongoDB
-                    </h3>
-                    <p className={`text-sm max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                      Phase 4 will render the complete summary card, host contact info, and submission to the backend API.
-                    </p>
-                    <div className="flex items-center justify-center space-x-3 pt-2">
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(3)}
-                        className={`px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer ${
-                          isDark ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                        }`}
-                      >
-                        ← Back to Step 3
-                      </button>
-                    </div>
-                  </div>
+                  createdItem ? (
+                    <SubmissionSuccess
+                      createdItem={createdItem}
+                      onPostAnother={handlePostAnother}
+                      onViewFeed={() => setActiveTab('feed')}
+                      theme={theme}
+                    />
+                  ) : (
+                    <ReviewSummary
+                      formData={formData}
+                      updateFormData={updateFormData}
+                      onSubmit={handleSubmit}
+                      onBack={() => setCurrentStep(3)}
+                      onJumpToStep={(step) => setCurrentStep(step)}
+                      isSubmitting={isSubmitting}
+                      submitError={submitError}
+                      theme={theme}
+                    />
+                  )
                 )}
               </div>
             </div>

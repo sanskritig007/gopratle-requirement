@@ -6,7 +6,9 @@ export async function connectDB(): Promise<void> {
   try {
     if (mongoUri && mongoUri.trim() !== '') {
       console.log('🔄 Connecting to provided MongoDB URI...');
-      await mongoose.connect(mongoUri);
+      await mongoose.connect(mongoUri, {
+        serverSelectionTimeoutMS: 8000,
+      });
       console.log('✅ Connected to MongoDB successfully.');
     } else {
       console.log('ℹ️ No MONGODB_URI provided in .env. Starting in-memory MongoDB for local development...');
@@ -23,8 +25,10 @@ export async function connectDB(): Promise<void> {
         process.exit(0);
       });
     }
-  } catch (error) {
-    console.error('❌ MongoDB Connection Error:', error);
-    process.exit(1);
+  } catch (error: any) {
+    console.error('❌ MongoDB Connection Error details:', error.message || error);
+    if (error.reason) {
+      console.error('❌ MongoDB Reason:', error.reason);
+    }
   }
 }

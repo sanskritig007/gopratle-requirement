@@ -51,12 +51,19 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
 
 // Start Server
 async function startServer() {
-  await connectDB();
-  app.listen(PORT, () => {
-    console.log(`🚀 GoPratle Backend API running at http://localhost:${PORT}`);
-    console.log(`📡 Health check available at http://localhost:${PORT}/api/health`);
-    console.log(`📋 Requirements API available at http://localhost:${PORT}/api/requirements`);
+  const server = app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`🚀 GoPratle Backend API running on 0.0.0.0:${PORT}`);
+    console.log(`📡 Health check available at /api/health`);
+    console.log(`📋 Requirements API available at /api/requirements`);
   });
+
+  // Connect to DB
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error('⚠️ Initial DB connection attempt failed:', err);
+  }
 }
 
 startServer();
+

@@ -10,6 +10,7 @@ import { EventLogistics } from '@/components/wizard/EventLogistics';
 import { ReviewSummary } from '@/components/wizard/ReviewSummary';
 import { SubmissionSuccess } from '@/components/wizard/SubmissionSuccess';
 import { EventPreviewCard } from '@/components/wizard/EventPreviewCard';
+import { RequirementFeed } from '@/components/feed/RequirementFeed';
 import { IRequirementFormData, IRequirementItem, CategoryType } from '@/types/requirement';
 import { SAMPLE_PRESETS } from '@/lib/constants';
 import { createRequirement } from '@/lib/api';
@@ -229,19 +230,10 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="py-12 text-center space-y-4">
-            <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Requirements Feed</h3>
-            <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              Live listings explorer will be available in Phase 5.
-            </p>
-            <button
-              type="button"
-              onClick={() => setActiveTab('wizard')}
-              className="px-4 py-2 rounded-xl text-xs font-semibold bg-orange-500 text-white cursor-pointer"
-            >
-              Post a Requirement
-            </button>
-          </div>
+          <RequirementFeed
+            onPostNew={() => setActiveTab('wizard')}
+            theme={theme}
+          />
         )}
       </main>
     </div>

@@ -4,14 +4,14 @@ import React from 'react';
 import { Check, Calendar, Layers, Sliders, FileCheck } from 'lucide-react';
 import { CategoryType } from '@/types/requirement';
 
-interface StepIndicatorProps {
+interface StepperProps {
   currentStep: number;
   category: CategoryType;
   onStepClick?: (step: number) => void;
   theme?: 'dark' | 'light';
 }
 
-export const StepIndicator: React.FC<StepIndicatorProps> = ({
+export const Stepper: React.FC<StepperProps> = ({
   currentStep,
   category,
   onStepClick,

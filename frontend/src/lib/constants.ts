@@ -101,6 +101,44 @@ export const CREW_ROLES_OPTIONS = [
   'Registration & Ticketing Desk',
 ];
 
+export const THEME_VIBES_OPTIONS = [
+  'Royal Rajputana Heritage',
+  'Modern Minimalist Luxury',
+  'Bohemian Chic Garden',
+  'Bollywood Retro Glam',
+  'Futuristic Cyber Neon',
+  'Classic White Floral Elegance',
+  'Rustic Vintage Farmhouse',
+  'Tropical Beach Sunset',
+];
+
+export const CATERING_OPTIONS = [
+  'Both (Separate Veg & Non-Veg Counters)',
+  'Pure Vegetarian Only',
+  'Jain Food Options Available',
+  'No Catering Required',
+];
+
+export const SOUND_POLICIES = [
+  'Host / Venue Provides Full PA & Sound System',
+  'Performer Must Bring Own Sound Equipment',
+  'Open to Discussion / Hybrid',
+];
+
+export const GEAR_POLICIES = [
+  'Crew Must Bring Own Equipment',
+  'Host / Venue Provides All Equipment',
+  'Partial / Mixed (Venue Audio + Personal Cameras)',
+];
+
+export const AUDIENCE_PRESETS = [
+  '50 - 200 Guests',
+  '200 - 500 Guests',
+  '500 - 1,500 Guests',
+  '1,500 - 5,000 Guests',
+  '5,000+ Massive Arena',
+];
+
 export const SAMPLE_PRESETS: Record<CategoryType, IRequirementFormData> = {
   planner: {
     category: 'planner',

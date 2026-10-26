@@ -39,7 +39,7 @@ const BUDGET_PRESETS = [
   { label: '₹75L - ₹1.5Cr', min: 7500000, max: 15000000 },
 ];
 
-export const Step2CategorySpecific: React.FC<Step2Props> = ({
+export const CategoryDetails: React.FC<Step2Props> = ({
   formData,
   updateFormData,
   onNext,

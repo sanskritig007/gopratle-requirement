@@ -32,7 +32,7 @@ const QUICK_CITIES = [
   { city: 'Hyderabad', state: 'Telangana' },
 ];
 
-export const Step1EventBasics: React.FC<Step1Props> = ({
+export const EventBasics: React.FC<Step1Props> = ({
   formData,
   updateFormData,
   onNext,

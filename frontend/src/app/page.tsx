@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
-import { StepIndicator } from '@/components/wizard/StepIndicator';
-import { Step1EventBasics } from '@/components/wizard/Step1EventBasics';
-import { Step2CategorySpecific } from '@/components/wizard/Step2CategorySpecific';
-import { LiveRequirementPreview } from '@/components/wizard/LiveRequirementPreview';
+import { Stepper } from '@/components/wizard/Stepper';
+import { EventBasics } from '@/components/wizard/EventBasics';
+import { CategoryDetails } from '@/components/wizard/CategoryDetails';
+import { EventLogistics } from '@/components/wizard/EventLogistics';
+import { EventPreviewCard } from '@/components/wizard/EventPreviewCard';
 import { IRequirementFormData, CategoryType } from '@/types/requirement';
 import { SAMPLE_PRESETS } from '@/lib/constants';
 
@@ -117,7 +118,7 @@ export default function Home() {
             {/* Left Column: Form Wizard */}
             <div className="lg:col-span-7 xl:col-span-8 space-y-6">
               {/* Stepper */}
-              <StepIndicator
+              <Stepper
                 currentStep={currentStep}
                 category={formData.category}
                 onStepClick={(step) => setCurrentStep(step)}
@@ -132,9 +133,9 @@ export default function Home() {
                     : 'bg-white border-slate-200/90 text-slate-900 shadow-slate-200/60'
                 }`}
               >
-                {/* Step 1: Event Basics & Category */}
+                {/* Step 1: Event Basics */}
                 {currentStep === 1 && (
-                  <Step1EventBasics
+                  <EventBasics
                     formData={formData}
                     updateFormData={updateFormData}
                     onNext={() => setCurrentStep(2)}
@@ -142,9 +143,9 @@ export default function Home() {
                   />
                 )}
 
-                {/* Step 2: Category Specific Specs */}
+                {/* Step 2: Category Details */}
                 {currentStep === 2 && (
-                  <Step2CategorySpecific
+                  <CategoryDetails
                     formData={formData}
                     updateFormData={updateFormData}
                     onNext={() => setCurrentStep(3)}
@@ -153,27 +154,38 @@ export default function Home() {
                   />
                 )}
 
-                {/* Step 3 Placeholder */}
+                {/* Step 3: Event Logistics */}
                 {currentStep === 3 && (
+                  <EventLogistics
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onNext={() => setCurrentStep(4)}
+                    onBack={() => setCurrentStep(2)}
+                    theme={theme}
+                  />
+                )}
+
+                {/* Step 4 Placeholder */}
+                {currentStep === 4 && (
                   <div className="py-12 text-center space-y-4 animate-fadeIn">
                     <div className="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 text-orange-500 mx-auto flex items-center justify-center text-2xl font-bold">
-                      03
+                      04
                     </div>
                     <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                      Step 3: Logistics & Technicals ({formData.category.toUpperCase()})
+                      Step 4: Review & Post to MongoDB
                     </h3>
                     <p className={`text-sm max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                      Up next: Theme & catering for planners, stage & sound specs for performers, shift timings & equipment for crew.
+                      Phase 4 will render the complete summary card, host contact info, and submission to the backend API.
                     </p>
                     <div className="flex items-center justify-center space-x-3 pt-2">
                       <button
                         type="button"
-                        onClick={() => setCurrentStep(2)}
+                        onClick={() => setCurrentStep(3)}
                         className={`px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer ${
                           isDark ? 'bg-slate-800 text-slate-300 hover:text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         }`}
                       >
-                        ← Back to Step 2
+                        ← Back to Step 3
                       </button>
                     </div>
                   </div>
@@ -183,7 +195,7 @@ export default function Home() {
 
             {/* Right Column: Live Requirement Ticket Preview */}
             <div className="lg:col-span-5 xl:col-span-4">
-              <LiveRequirementPreview formData={formData} theme={theme} />
+              <EventPreviewCard formData={formData} theme={theme} />
             </div>
           </div>
         ) : (

@@ -12,12 +12,12 @@ import {
 } from 'lucide-react';
 import { IRequirementFormData } from '@/types/requirement';
 
-interface LiveRequirementPreviewProps {
+interface EventPreviewCardProps {
   formData: IRequirementFormData;
   theme?: 'dark' | 'light';
 }
 
-export const LiveRequirementPreview: React.FC<LiveRequirementPreviewProps> = ({
+export const EventPreviewCard: React.FC<EventPreviewCardProps> = ({
   formData,
   theme = 'dark',
 }) => {

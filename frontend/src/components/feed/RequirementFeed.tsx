@@ -369,6 +369,14 @@ export function RequirementFeed({ onPostNew, theme }: RequirementFeedProps) {
                     {item.category === 'performer' && item.performerDetails && (
                       <>
                         <div className="flex items-center justify-between">
+                          <span className="text-slate-400">Budget:</span>
+                          <span className="font-bold text-emerald-400">
+                            {item.performerDetails.budgetMax
+                              ? `₹${item.performerDetails.budgetMin?.toLocaleString('en-IN')} – ₹${item.performerDetails.budgetMax?.toLocaleString('en-IN')}`
+                              : '₹25,000 – ₹75,000'}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
                           <span className="text-slate-400">Format:</span>
                           <span className="font-bold text-purple-300">
                             🎤 {item.performerDetails.performanceType || 'Performer'}
@@ -390,6 +398,14 @@ export function RequirementFeed({ onPostNew, theme }: RequirementFeedProps) {
 
                     {item.category === 'crew' && item.crewDetails && (
                       <>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-400">Budget:</span>
+                          <span className="font-bold text-emerald-400">
+                            {item.crewDetails.budgetMax
+                              ? `₹${item.crewDetails.budgetMin?.toLocaleString('en-IN')} – ₹${item.crewDetails.budgetMax?.toLocaleString('en-IN')}`
+                              : '₹30,000 – ₹75,000'}
+                          </span>
+                        </div>
                         <div className="flex items-center justify-between">
                           <span className="text-slate-400">Crew Size:</span>
                           <span className="font-bold text-amber-400">

@@ -21,6 +21,9 @@ export interface IPerformerDetails {
   durationHours: number;
   numberOfSets: number;
   soundProvidedByHost: boolean;
+  budgetMin?: number;
+  budgetMax?: number;
+  currency?: string;
   stageSpecifications?: string;
   audienceSize?: number;
   specialRequests?: string;
@@ -38,6 +41,9 @@ export interface ICrewDetails {
   gearPolicy: string;
   uniformRequired: boolean;
   mealsProvided: boolean;
+  budgetMin?: number;
+  budgetMax?: number;
+  currency?: string;
   additionalNotes?: string;
 }
 
@@ -142,6 +148,9 @@ const RequirementSchema = new Schema<IRequirement>(
           durationHours: { type: Number, min: 0.5 },
           numberOfSets: { type: Number, min: 1, default: 1 },
           soundProvidedByHost: { type: Boolean, default: false },
+          budgetMin: { type: Number, min: 0 },
+          budgetMax: { type: Number, min: 0 },
+          currency: { type: String, default: 'INR' },
           stageSpecifications: { type: String, trim: true },
           audienceSize: { type: Number, min: 1 },
           specialRequests: { type: String, trim: true },
@@ -164,6 +173,9 @@ const RequirementSchema = new Schema<IRequirement>(
           gearPolicy: { type: String, trim: true },
           uniformRequired: { type: Boolean, default: false },
           mealsProvided: { type: Boolean, default: true },
+          budgetMin: { type: Number, min: 0 },
+          budgetMax: { type: Number, min: 0 },
+          currency: { type: String, default: 'INR' },
           additionalNotes: { type: String, trim: true },
         },
         { _id: false }

@@ -19,6 +19,9 @@ export interface IPerformerDetails {
   durationHours: number;
   numberOfSets: number;
   soundProvidedByHost: boolean;
+  budgetMin?: number;
+  budgetMax?: number;
+  currency?: string;
   stageSpecifications?: string;
   audienceSize?: number;
   specialRequests?: string;
@@ -36,6 +39,9 @@ export interface ICrewDetails {
   gearPolicy: string;
   uniformRequired: boolean;
   mealsProvided: boolean;
+  budgetMin?: number;
+  budgetMax?: number;
+  currency?: string;
   additionalNotes?: string;
 }
 

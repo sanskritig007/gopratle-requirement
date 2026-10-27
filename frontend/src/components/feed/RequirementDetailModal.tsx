@@ -254,7 +254,7 @@ export function RequirementDetailModal({ item, onClose, theme }: RequirementDeta
               <h3 className="text-sm font-semibold uppercase tracking-wider text-purple-400">
                 Performance Specifications
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div
                   className={`p-3 rounded-xl border ${
                     isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
@@ -270,7 +270,19 @@ export function RequirementDetailModal({ item, onClose, theme }: RequirementDeta
                     isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
-                  <div className="text-xs text-slate-400">Set Duration</div>
+                  <div className="text-xs text-slate-400">Budget / Fee</div>
+                  <div className="text-sm font-bold mt-1 text-emerald-400">
+                    💰 {item.performerDetails.budgetMax
+                      ? `₹${item.performerDetails.budgetMin?.toLocaleString('en-IN')} – ₹${item.performerDetails.budgetMax?.toLocaleString('en-IN')}`
+                      : '₹25,000 – ₹75,000'}
+                  </div>
+                </div>
+                <div
+                  className={`p-3 rounded-xl border ${
+                    isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
+                  }`}
+                >
+                  <div className="text-xs text-slate-400">Duration</div>
                   <div className="text-sm font-bold mt-1">
                     ⏱️ {item.performerDetails.durationHours} hrs ({item.performerDetails.numberOfSets}{' '}
                     sets)
@@ -281,12 +293,12 @@ export function RequirementDetailModal({ item, onClose, theme }: RequirementDeta
                     isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
                   }`}
                 >
-                  <div className="text-xs text-slate-400">Sound / PA System</div>
+                  <div className="text-xs text-slate-400">Sound / PA</div>
                   <div className="text-xs font-bold mt-1 text-purple-300">
                     🔊{' '}
                     {item.performerDetails.soundProvidedByHost
                       ? 'Provided by Host'
-                      : 'Performer brings own'}
+                      : 'Brings own gear'}
                   </div>
                 </div>
               </div>
@@ -348,7 +360,19 @@ export function RequirementDetailModal({ item, onClose, theme }: RequirementDeta
                   </div>
                 </div>
                 <div
-                  className={`p-3 rounded-xl border col-span-1 sm:col-span-2 ${
+                  className={`p-3 rounded-xl border ${
+                    isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
+                  }`}
+                >
+                  <div className="text-xs text-slate-400">Staffing Budget</div>
+                  <div className="text-sm font-bold mt-1 text-emerald-400">
+                    💰 {item.crewDetails.budgetMax
+                      ? `₹${item.crewDetails.budgetMin?.toLocaleString('en-IN')} – ₹${item.crewDetails.budgetMax?.toLocaleString('en-IN')}`
+                      : '₹30,000 – ₹75,000'}
+                  </div>
+                </div>
+                <div
+                  className={`p-3 rounded-xl border ${
                     isDark ? 'bg-slate-800/40 border-slate-800' : 'bg-slate-50 border-slate-200'
                   }`}
                 >

@@ -225,6 +225,14 @@ export const EventPreviewCard: React.FC<EventPreviewCardProps> = ({
                     {formData.performerDetails?.durationHours ? `${formData.performerDetails.durationHours} Hours` : 'TBD in Step 2'}
                   </span>
                 </div>
+                <div className="flex justify-between">
+                  <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>Artist Fee:</span>
+                  <span className="font-semibold text-emerald-500">
+                    {formData.performerDetails?.budgetMax
+                      ? `₹${formData.performerDetails.budgetMin?.toLocaleString('en-IN')} - ₹${formData.performerDetails.budgetMax?.toLocaleString('en-IN')}`
+                      : 'Flexible / In Discussion'}
+                  </span>
+                </div>
               </div>
             )}
 
@@ -234,6 +242,14 @@ export const EventPreviewCard: React.FC<EventPreviewCardProps> = ({
                   <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>Roles Needed:</span>
                   <span className="font-semibold text-blue-500">
                     {formData.crewDetails?.rolesNeeded?.length ? `${formData.crewDetails.rolesNeeded.reduce((acc, r) => acc + r.count, 0)} Total Crew` : 'TBD in Step 2'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>Staffing Budget:</span>
+                  <span className="font-semibold text-emerald-500">
+                    {formData.crewDetails?.budgetMax
+                      ? `₹${formData.crewDetails.budgetMin?.toLocaleString('en-IN')} - ₹${formData.crewDetails.budgetMax?.toLocaleString('en-IN')}`
+                      : 'Flexible / In Discussion'}
                   </span>
                 </div>
                 <div className="flex justify-between">

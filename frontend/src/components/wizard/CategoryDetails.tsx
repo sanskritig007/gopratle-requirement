@@ -38,6 +38,18 @@ const BUDGET_PRESETS = [
   { label: '₹35L - ₹50L', min: 3500000, max: 5000000 },
   { label: '₹75L - ₹1.5Cr', min: 7500000, max: 15000000 },
 ];
+const PERFORMER_BUDGET_PRESETS = [
+  { label: '₹25K - ₹50K', min: 25000, max: 50000 },
+  { label: '₹75K - ₹1.5L', min: 75000, max: 150000 },
+  { label: '₹2L - ₹4L', min: 200000, max: 400000 },
+  { label: '₹5L - ₹10L', min: 500000, max: 1000000 },
+];
+const CREW_BUDGET_PRESETS = [
+  { label: '₹15K - ₹35K', min: 15000, max: 35000 },
+  { label: '₹40K - ₹80K', min: 40000, max: 80000 },
+  { label: '₹1L - ₹2.5L', min: 100000, max: 250000 },
+  { label: '₹3L - ₹6L', min: 300000, max: 600000 },
+];
 
 export const CategoryDetails: React.FC<Step2Props> = ({
   formData,
@@ -550,6 +562,112 @@ export const CategoryDetails: React.FC<Step2Props> = ({
               </select>
             </div>
           </div>
+
+          {/* Performer Budget Range */}
+          <div className={`p-5 rounded-2xl border space-y-4 ${sectionBg}`}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <label className={`text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                  <span>Estimated Artist Budget / Fee (INR)</span>
+                </label>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Target honorarium or performance fee range for this booking.
+                </p>
+              </div>
+
+              {formData.performerDetails?.budgetMax ? (
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                  {formatLakhs(formData.performerDetails.budgetMin || 0)} — {formatLakhs(formData.performerDetails.budgetMax)}
+                </span>
+              ) : null}
+            </div>
+
+            {/* Quick Chips */}
+            <div className="flex flex-wrap items-center gap-2">
+              {PERFORMER_BUDGET_PRESETS.map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => {
+                    updateFormData({
+                      performerDetails: {
+                        ...formData.performerDetails,
+                        performanceType: formData.performerDetails?.performanceType || 'Electronic DJ / Club DJ',
+                        genres: formData.performerDetails?.genres || ['Bollywood Commercial'],
+                        durationHours: formData.performerDetails?.durationHours || 2,
+                        numberOfSets: formData.performerDetails?.numberOfSets || 1,
+                        soundProvidedByHost: formData.performerDetails?.soundProvidedByHost || false,
+                        budgetMin: preset.min,
+                        budgetMax: preset.max,
+                      },
+                    });
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    formData.performerDetails?.budgetMax === preset.max
+                      ? 'bg-purple-600 text-white shadow-xs'
+                      : isDark
+                      ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 max-w-md">
+              <div>
+                <label className="text-[11px] text-slate-400 block mb-1">Min Fee (₹)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="5000"
+                  value={formData.performerDetails?.budgetMin || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      performerDetails: {
+                        ...formData.performerDetails,
+                        performanceType: formData.performerDetails?.performanceType || 'Electronic DJ / Club DJ',
+                        genres: formData.performerDetails?.genres || ['Bollywood Commercial'],
+                        durationHours: formData.performerDetails?.durationHours || 2,
+                        numberOfSets: formData.performerDetails?.numberOfSets || 1,
+                        soundProvidedByHost: formData.performerDetails?.soundProvidedByHost || false,
+                        budgetMin: parseInt(e.target.value) || 0,
+                        budgetMax: formData.performerDetails?.budgetMax || 100000,
+                      },
+                    })
+                  }
+                  placeholder="e.g. 25000"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputBg}`}
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-slate-400 block mb-1">Max Fee (₹)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="5000"
+                  value={formData.performerDetails?.budgetMax || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      performerDetails: {
+                        ...formData.performerDetails,
+                        performanceType: formData.performerDetails?.performanceType || 'Electronic DJ / Club DJ',
+                        genres: formData.performerDetails?.genres || ['Bollywood Commercial'],
+                        durationHours: formData.performerDetails?.durationHours || 2,
+                        numberOfSets: formData.performerDetails?.numberOfSets || 1,
+                        soundProvidedByHost: formData.performerDetails?.soundProvidedByHost || false,
+                        budgetMin: formData.performerDetails?.budgetMin || 25000,
+                        budgetMax: parseInt(e.target.value) || 0,
+                      },
+                    })
+                  }
+                  placeholder="e.g. 75000"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputBg}`}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
@@ -712,6 +830,114 @@ export const CategoryDetails: React.FC<Step2Props> = ({
               <span>{errors.crewRoles}</span>
             </p>
           )}
+          {/* Crew Staffing Budget Range */}
+          <div className={`p-5 rounded-2xl border space-y-4 ${sectionBg}`}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <label className={`text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                  <span>Estimated Total Staffing Budget (INR)</span>
+                </label>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Approximate budget allocated for all on-ground crew roles.
+                </p>
+              </div>
+
+              {formData.crewDetails?.budgetMax ? (
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                  {formatLakhs(formData.crewDetails.budgetMin || 0)} — {formatLakhs(formData.crewDetails.budgetMax)}
+                </span>
+              ) : null}
+            </div>
+
+            {/* Quick Chips */}
+            <div className="flex flex-wrap items-center gap-2">
+              {CREW_BUDGET_PRESETS.map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => {
+                    updateFormData({
+                      crewDetails: {
+                        ...formData.crewDetails,
+                        rolesNeeded: formData.crewDetails?.rolesNeeded || [],
+                        shiftStartTime: formData.crewDetails?.shiftStartTime || '09:00 AM',
+                        shiftEndTime: formData.crewDetails?.shiftEndTime || '06:00 PM',
+                        gearPolicy: formData.crewDetails?.gearPolicy || 'Crew Must Bring Own Equipment',
+                        uniformRequired: formData.crewDetails?.uniformRequired || false,
+                        mealsProvided: formData.crewDetails?.mealsProvided ?? true,
+                        budgetMin: preset.min,
+                        budgetMax: preset.max,
+                      },
+                    });
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    formData.crewDetails?.budgetMax === preset.max
+                      ? 'bg-amber-500 text-slate-950 font-bold shadow-xs'
+                      : isDark
+                      ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 max-w-md">
+              <div>
+                <label className="text-[11px] text-slate-400 block mb-1">Min Budget (₹)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="5000"
+                  value={formData.crewDetails?.budgetMin || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      crewDetails: {
+                        ...formData.crewDetails,
+                        rolesNeeded: formData.crewDetails?.rolesNeeded || [],
+                        shiftStartTime: formData.crewDetails?.shiftStartTime || '09:00 AM',
+                        shiftEndTime: formData.crewDetails?.shiftEndTime || '06:00 PM',
+                        gearPolicy: formData.crewDetails?.gearPolicy || 'Crew Must Bring Own Equipment',
+                        uniformRequired: formData.crewDetails?.uniformRequired || false,
+                        mealsProvided: formData.crewDetails?.mealsProvided ?? true,
+                        budgetMin: parseInt(e.target.value) || 0,
+                        budgetMax: formData.crewDetails?.budgetMax || 80000,
+                      },
+                    })
+                  }
+                  placeholder="e.g. 20000"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputBg}`}
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-slate-400 block mb-1">Max Budget (₹)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="5000"
+                  value={formData.crewDetails?.budgetMax || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      crewDetails: {
+                        ...formData.crewDetails,
+                        rolesNeeded: formData.crewDetails?.rolesNeeded || [],
+                        shiftStartTime: formData.crewDetails?.shiftStartTime || '09:00 AM',
+                        shiftEndTime: formData.crewDetails?.shiftEndTime || '06:00 PM',
+                        gearPolicy: formData.crewDetails?.gearPolicy || 'Crew Must Bring Own Equipment',
+                        uniformRequired: formData.crewDetails?.uniformRequired || false,
+                        mealsProvided: formData.crewDetails?.mealsProvided ?? true,
+                        budgetMin: formData.crewDetails?.budgetMin || 20000,
+                        budgetMax: parseInt(e.target.value) || 0,
+                      },
+                    })
+                  }
+                  placeholder="e.g. 60000"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs focus:outline-none focus:ring-2 ${inputBg}`}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
